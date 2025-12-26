@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Fitness</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#d4ed3a',
+        dark: '#000000',
+        light: '#ffffff'
+      },
+      animation: {
+        'slide-in': 'slideIn 0.5s ease-out',
+        'pulse': 'pulse 1.5s infinite',
+      }
+    }
+  }
+}
+</script>
+<style>
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 10px;
+  height: 10px;
+  background-color: #d4ed3a;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  width: 10px;
+  height: 10px;
+  background-color: #d4ed3a;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.btn-primary {
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+.btn-secondary {
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+  transform: scale(1.05);
+}
+.feature-card {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.feature-card:hover {
+  border-color: #d4ed3a;
+}
+.service-card {
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+  transition: all 0.3s ease;
+}
+.service-card:hover {
+  background: linear-gradient(135deg, rgba(212, 237, 58, 0.2) 0%, rgba(212, 237, 58, 0.1) 100%);
+  transform: translateY(-5px);
+}
+.class-card {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.class-card:hover {
+  background-color: rgba(212, 237, 58, 0.1);
+  border-color: #d4ed3a;
+  transform: translateY(-5px);
+}
+.blog-card {
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 0.3s ease;
+}
+.blog-card:hover {
+  background-color: rgba(212, 237, 58, 0.1);
+  transform: translateY(-5px);
+}
+.nav-item {
+  transition: all 0.3s ease;
+}
+.nav-item:hover {
+  color: #d4ed3a;
+}
+.section-bg {
+  background: url('content/images/WhatsApp\ Image\ 2025-12-25\ at\ 17.31.49.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+.footer-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('content/images/WhatsApp\ Image\ 2025-12-25\ at\ 17.31.49.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+.badge {
+  background-color: #d4ed3a;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.icon-box {
+  background-color: #d4ed3a;
+  color: #000;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+/* Mobile menu */
+.mobile-menu {
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+.mobile-menu.open {
+  max-height: 500px;
+}
+@media (min-width: 768px) {
+  .mobile-menu {
+    max-height: none !important;
+    display: flex !important;
+  }
+}
+/* 3D Interactive Logo */
+.interactive-logo {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.interactive-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+.interactive-logo:active {
+  transform: scale(0.95) rotate(-5deg);
+}
+/* Announcement Tab */
+.announcement-tab {
+  background-color: rgba(0, 128, 0, 0.9);
+  color: white;
+  border-radius: 8px;
+  position: relative;
+  border-left: 4px solid #d4ed3a;
+}
+@keyframes slideIn {
+  from { transform: translateY(-100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+/* Slider Styles */
+.slider-container {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d4ed3a #333;
+  padding: 10px 0;
+}
+.slider-container::-webkit-scrollbar {
+  height: 6px;
+}
+.slider-container::-webkit-scrollbar-thumb {
+  background-color: #d4ed3a;
+  border-radius: 3px;
+}
+.slider-container::-webkit-scrollbar-track {
+  background: #333;
+}
+.slider-item {
+  display: inline-block;
+  margin-right: 15px;
+  min-width: 250px;
+  transition: transform 0.3s ease;
+}
+.slider-item:hover {
+  transform: scale(1.05);
+}
+/* Schedule Table Styling */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #008000;
+  color: white;
+}
+.schedule-table th,
+.schedule-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #006400;
+}
+.schedule-table th {
+  background-color: #006400;
+  font-weight: bold;
+}
+.schedule-table tr:nth-child(even) {
+  background-color: rgba(0, 128, 0, 0.1);
+}
+.schedule-table tr:hover {
+  background-color: rgba(0, 128, 0, 0.2);
+}
+/* Loading animation */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+</style>
+</head>
+<body class="bg-black text-white">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-black border-b border-gray-800">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-xl">Ironhook Boxing</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:flex items-center space-x-2">
+          <i class="fas fa-phone-alt text-yellow-400"></i>
+          <div class="text-right">
+            <div class="text-xs text-gray-400">Call Us Anytime:</div>
+            <div class="text-sm">+92 (003) 65-203</div>
+          </div>
+        </div>
+        <!-- Mobile menu button -->
+        <button id="mobileMenuButton" class="md:hidden p-2">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Navigation -->
+    <nav id="mobileMenu" class="mobile-menu md:flex md:space-x-6 mt-4 md:mt-0">
+      <div class="md:hidden py-4 border-t border-gray-700">
+        <div class="flex items-center space-x-2 mb-4 px-4">
+          <i class="fas fa-phone-alt text-yellow-400"></i>
+          <div>
+            <div class="text-xs text-gray-400">Call Us Anytime:</div>
+            <div>Number i will get from client</div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="block py-2 px-4 md:px-0 md:py-0 nav-item font-semibold text-yellow-400 border-b border-gray-700 md:border-0">HOME</a>
+      <a href="#" class="block py-2 px-4 md:px-0 md:py-0 nav-item border-b border-gray-700 md:border-0">ABOUT US</a>
+      <a href="#" class="block py-2 px-4 md:px-0 md:py-0 nav-item border-b border-gray-700 md:border-0">SERVICES <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+      <a href="#" class="block py-2 px-4 md:px-0 md:py-0 nav-item border-b border-gray-700 md:border-0">BLOG</a>
+      <a href="#" class="block py-2 px-4 md:px-0 md:py-0 nav-item border-b border-gray-700 md:border-0">CONTACT US</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="relative section-bg min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 bg-black opacity-70"></div>
+  <div class="container mx-auto px-4 relative z-10 py-12">
+    <div class="flex flex-col items-center">
+      <!-- Logo -->
+      <div class="mb-8 md:mb-12 flex justify-center">
+        <div class="interactive-logo w-40 h-40 md:w-48 md:h-48 flex items-center justify-center">
+          <div class="w-full h-full bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center">
+            <img
+              src="content/images/Screenshot_2025-12-26_150901-removebg-preview.png"
+              alt="Logo"
+              class="w-[90%] h-auto max-h-full object-contain drop-shadow-md"
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Content -->
+      <div class="space-y-6 text-center max-w-4xl">
+        <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold animate-pulse">
+          Start Your Fitness Journey
+        </div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+          Sculpt Your Body<br>Elevate Your Spirit
+        </h1>
+        <p class="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
+          Nobis ipsum aliquid imperdiet! Mollit, culpa viverra pharetra! Esse diamlorem aliquid blandit nobis eget, nec, metus! Cillum, possimus assumenda neque.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 pt-4">
+          <div class="flex items-center space-x-2">
+            <div class="icon-box"><i class="fas fa-store"></i></div>
+            <div><div class="font-bold text-lg md:text-xl">30+</div><div class="text-xs text-gray-400">Outlets</div></div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="icon-box"><i class="fas fa-users"></i></div>
+            <div><div class="font-bold text-lg md:text-xl">40+</div><div class="text-xs text-gray-400">Mentors</div></div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="icon-box"><i class="fas fa-dumbbell"></i></div>
+            <div><div class="font-bold text-lg md:text-xl">20k</div><div class="text-xs text-gray-400">Essentials</div></div>
+          </div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 pt-6">
+          <button class="btn-primary bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold w-full sm:w-auto hover:bg-yellow-500">
+            <i class="fas fa-play-circle mr-2"></i> Book a session
+          </button>
+          <button class="btn-secondary bg-gray-800 text-white px-6 py-3 rounded-full font-semibold w-full sm:w-auto hover:bg-gray-700">
+            <i class="far fa-calendar-alt mr-2"></i> SCHEDULE TIME
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Simplified Announcement Section -->
+<section class="py-8 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="announcement-tab p-4 md:p-6 animate-slide-in">
+      <div class="flex justify-between items-start">
+        <div class="flex-1">
+          <h3 class="font-bold text-lg md:text-xl mb-2 text-yellow-400">Latest Announcement</h3>
+          <div id="announcement-content" class="text-sm md:text-base text-gray-300">
+            Loading announcement...
+          </div>
+        </div>
+        <button id="announcement-close" class="text-white text-xl ml-4 hover:text-yellow-400 transition-colors">&times;</button>
+      </div>
+      <div class="mt-4 text-xs text-gray-300">
+        <span id="announcement-date">Posted: —</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="py-16 md:py-20 bg-black">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div class="relative order-2 lg:order-1">
+        <div class="relative w-full max-w-md mx-auto">
+          <div class="absolute -left-2 md:-left-4 top-0 w-full h-full bg-yellow-400 rounded-lg opacity-20 transform rotate-3"></div>
+          <div class="absolute -right-2 md:-right-4 bottom-0 w-full h-full bg-yellow-400 rounded-lg opacity-20 transform -rotate-3"></div>
+          <div class="relative bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Fitness Woman" class="w-full h-auto">
+          </div>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2">
+        <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4">
+          About Company
+        </div>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
+          The Ultimate Fitness & Wellness Destination
+        </h2>
+        <p class="text-gray-300 mb-6 md:mb-8">
+          Nobis ipsum aliquid imperdiet! Mollit, culpa viverra pharetra! Esse diamlorem aliquid blandit nobis eget, nec, metus! Cillum.
+        </p>
+        <div class="grid grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+          <div class="flex items-center space-x-2 p-2 md:p-3 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors">
+            <i class="fas fa-check-circle text-yellow-400"></i>
+            <span class="text-sm">Modern Facilities</span>
+          </div>
+          <div class="flex items-center space-x-2 p-2 md:p-3 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors">
+            <i class="fas fa-check-circle text-yellow-400"></i>
+            <span class="text-sm">Expert Team</span>
+          </div>
+          <div class="flex items-center space-x-2 p-2 md:p-3 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors">
+            <i class="fas fa-check-circle text-yellow-400"></i>
+            <span class="text-sm">Diverse Offering</span>
+          </div>
+          <div class="flex items-center space-x-2 p-2 md:p-3 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors">
+            <i class="fas fa-check-circle text-yellow-400"></i>
+            <span class="text-sm">Fitness Focus</span>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+          <button class="btn-primary bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold w-full sm:w-auto hover:bg-yellow-500">
+            MORE ABOUT US
+          </button>
+          <div class="flex items-center space-x-3 p-3 bg-gray-900 rounded-lg w-full sm:w-auto hover:bg-gray-800 transition-colors">
+            <i class="fas fa-phone-alt text-yellow-400"></i>
+            <div>
+              <div class="text-xs text-gray-400">Need Help Contact Us</div>
+              <div class="text-sm">+9-800-888-7-555</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-16 md:py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-10 md:mb-12">
+      <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4">
+        Our Services
+      </div>
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
+        Reliable Fitness Services
+      </h2>
+      <p class="text-gray-300 max-w-lg md:max-w-2xl mx-auto text-sm md:text-base">
+        Nobis ipsum aliquid imperdiet! Mollit, culpa viverra pharetra! Esse diamlorem aliquid blandit nobis eget, nec, metus! Cillum, possimus assumenda.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div class="service-card rounded-lg overflow-hidden">
+        <div class="relative">
+          <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Online Training" class="w-full h-40 md:h-48 object-cover">
+          <div class="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full font-bold text-sm">
+            01.
+          </div>
+          <div class="absolute top-3 right-3 bg-gray-800 p-1.5 rounded-full hover:bg-gray-700 transition-colors">
+            <i class="fas fa-arrow-up-right-from-square text-white text-xs"></i>
+          </div>
+        </div>
+        <div class="p-4 md:p-6">
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Online Personal Training Class</h3>
+        </div>
+      </div>
+      <div class="service-card rounded-lg overflow-hidden">
+        <div class="relative">
+          <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Functional Training" class="w-full h-40 md:h-48 object-cover">
+          <div class="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full font-bold text-sm">
+            02.
+          </div>
+          <div class="absolute top-3 right-3 bg-gray-800 p-1.5 rounded-full hover:bg-gray-700 transition-colors">
+            <i class="fas fa-arrow-up-right-from-square text-white text-xs"></i>
+          </div>
+        </div>
+        <div class="p-4 md:p-6">
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">The Functional Fitness Training</h3>
+        </div>
+      </div>
+      <div class="service-card rounded-lg overflow-hidden">
+        <div class="relative">
+          <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Weight Loss Coaching" class="w-full h-40 md:h-48 object-cover">
+          <div class="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full font-bold text-sm">
+            03.
+          </div>
+          <div class="absolute top-3 right-3 bg-gray-800 p-1.5 rounded-full hover:bg-gray-700 transition-colors">
+            <i class="fas fa-arrow-up-right-from-square text-white text-xs"></i>
+          </div>
+        </div>
+        <div class="p-4 md:p-6">
+          <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Weight Loss Coaching Class</h3>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8 md:mt-12">
+      <button class="btn-primary bg-yellow-400 text-black px-6 md:px-8 py-3 rounded-full font-semibold hover:bg-yellow-500">
+        VIEW ALL SERVICES
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Classes Section -->
+<section class="py-16 md:py-20 bg-black">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-start mb-8 md:mb-12">
+      <div class="mb-6 md:mb-0">
+        <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-3 md:mb-4">
+          Popular Classes
+        </div>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
+          Best Workout Program Made For You!
+        </h2>
+        <p class="text-gray-300 max-w-md text-sm md:text-base">
+          Metus dolores blanditiis officiis curabitur sapien assumenda iaculis provident possimus quibusdam malesuada praesentium alias.
+        </p>
+      </div>
+      <button class="btn-primary bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold whitespace-nowrap hover:bg-yellow-500">
+        VIEW ALL CLASSES
+      </button>
+    </div>
+    <div class="space-y-4 md:space-y-6">
+      <div class="class-card rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Body Building" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg">
+        <div class="flex-grow">
+          <h3 class="text-lg md:text-xl font-bold mb-2">ADVANCED KIDS TEENS</h3>
+          <p class="text-gray-300 text-sm mb-3 md:mb-4">
+            details client will give
+          </p>
+        </div>
+        <div class="flex flex-col space-y-1 md:space-y-2 text-sm">
+          <div class="flex items-center space-x-2">
+            <i class="far fa-calendar-alt text-yellow-400 text-xs"></i>
+            <span>Mon-Wed-fri</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="far fa-clock text-yellow-400 text-xs"></i>
+            <span>4.30PM - 5.25PM</span>
+          </div>
+        </div>
+        <button class="btn-primary bg-yellow-400 text-black px-3 md:px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-yellow-500">
+          JOIN NOW
+        </button>
+      </div>
+      <div class="class-card rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Weight Lifting" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg">
+        <div class="flex-grow">
+          <h3 class="text-lg md:text-xl font-bold mb-2">ADULT BEGINNER</h3>
+          <p class="text-gray-300 text-sm mb-3 md:mb-4">
+            client will provide
+          </p>
+        </div>
+        <div class="flex flex-col space-y-1 md:space-y-2 text-sm">
+          <div class="flex items-center space-x-2">
+            <i class="far fa-calendar-alt text-yellow-400 text-xs"></i>
+            <span>Mon-Wed-fri</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <i class="far fa-clock text-yellow-400 text-xs"></i>
+            <span>5.30PM - 6.25PM</span>
+          </div>
+        </div>
+        <button class="btn-primary bg-yellow-400 text-black px-3 md:px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-yellow-500">
+          JOIN NOW
+        </button>
+      </div>
+      <div class="class-card rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Running Program" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg">
+        <div class="flex-grow">
+          <h3 class="text-lg md:text-xl font-bold mb-2">ADULT INTERMEDIATE</h3>
+          <p class="text-gray-300 text-sm mb-3 md:mb-4">
+            client will provide
+          </p>
+        </div>
+        <div class="flex flex-col space-y-1 md:space-y-2 text-sm">
+          <div class="flex items-center space-x-2">
+            <i class="far fa-calendar-alt text-yellow-400 text-xs"></i>
+            <span>Mon-Tue-Wed-Thur-Fri</span>
+          </div>
+        </div>
+        <button class="btn-primary bg-yellow-400 text-black px-3 md:px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-yellow-500">
+          JOIN NOW
+        </button>
+      </div>
+      <div class="class-card rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+        <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Yoga & Zumba" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg">
+        <div class="flex-grow">
+          <h3 class="text-lg md:text-xl font-bold mb-2">ADVANCED ADULTS</h3>
+          <p class="text-gray-300 text-sm mb-3 md:mb-4">
+            placeholder
+          </p>
+        </div>
+        <div class="flex flex-col space-y-1 md:space-y-2 text-sm">
+          <div class="flex items-center space-x-2">
+            <i class="far fa-calendar-alt text-yellow-400 text-xs"></i>
+            <span>Mon-Tue-Wed-Thur-Fri</span>
+          </div>
+        </div>
+        <button class="btn-primary bg-yellow-400 text-black px-3 md:px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap hover:bg-yellow-500">
+          JOIN NOW
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Schedule Section -->
+<section class="py-16 md:py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4">
+        Class Schedule
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Weekly Class Schedule
+      </h2>
+      <p class="text-gray-300 max-w-2xl mx-auto">
+        Check out our weekly schedule to plan your workouts. All classes are led by certified trainers.
+      </p>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>TIME</th>
+            <th>MON</th>
+            <th>TUE</th>
+            <th>WED</th>
+            <th>THUR</th>
+            <th>FRI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>4.30PM - 5.25PM</td>
+            <td>ADVANCED KIDS TEENS</td>
+            <td>KIDS CLASS</td>
+            <td>ADVANCED KIDS TEENS</td>
+            <td>KIDS CLASS</td>
+            <td>ADVANCED KIDS TEENS</td>
+          </tr>
+          <tr>
+            <td>5.30PM - 6.25PM</td>
+            <td>ADULT BEGINNER</td>
+            <td>ADULT INTERMEDIATE</td>
+            <td>ADULT BEGINNER</td>
+            <td>ADULT INTERMEDIATE</td>
+            <td>ADULT BEGINNER</td>
+          </tr>
+          <tr>
+            <td>6.30PM - 7.25PM</td>
+            <td>ADULT INTERMEDIATE</td>
+            <td>ADVANCED ADULTS</td>
+            <td>ADULT INTERMEDIATE</td>
+            <td>ADVANCED ADULTS</td>
+            <td>ADULT INTERMEDIATE</td>
+          </tr>
+          <tr>
+            <td>7.30PM - 8.25PM</td>
+            <td>ADVANCED ADULTS</td>
+            <td>PRIVATE LESSONS</td>
+            <td>ADVANCED ADULTS</td>
+            <td>PRIVATE LESSONS</td>
+            <td>ADVANCED ADULTS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Sponsor Section -->
+<section class="py-16 md:py-20 bg-black">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4">
+        Our Sponsors
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Trusted By Industry Leaders
+      </h2>
+      <p class="text-gray-300 max-w-2xl mx-auto">
+        We're proud to partner with these amazing brands who support our mission to promote health and fitness.
+      </p>
+    </div>
+    <div class="slider-container">
+      <div class="flex whitespace-nowrap">
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+1" alt="Sponsor 1" class="max-h-16 object-contain">
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+2" alt="Sponsor 2" class="max-h-16 object-contain">
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+3" alt="Sponsor 3" class="max-h-16 object-contain">
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+4" alt="Sponsor 4" class="max-h-16 object-contain">
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+5" alt="Sponsor 5" class="max-h-16 object-contain">
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 p-6 rounded-lg h-32 flex items-center justify-center hover:bg-gray-700 transition-colors">
+            <img src="https://via.placeholder.com/150x80/333333/FFFFFF?text=SPONSOR+6" alt="Sponsor 6" class="max-h-16 object-contain">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Instagram Section -->
+<section class="py-16 md:py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <div class="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold mb-4">
+        Follow Us
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Instagram Feed
+      </h2>
+      <p class="text-gray-300 max-w-2xl mx-auto">
+        Follow us on Instagram to see our latest workouts, success stories, and gym updates.
+      </p>
+    </div>
+    <div class="slider-container">
+      <div class="flex whitespace-nowrap">
+        <div class="slider-item">
+          <div class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Instagram Post 1" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <p class="text-sm">placeholder</p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Instagram Post 2" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <p class="text-sm">placeholder</p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Instagram Post 3" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <p class="text-sm">placeholder</p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Instagram Post 4" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <p class="text-sm"></p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-item">
+          <div class="bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-colors">
+            <img src="content/images/WhatsApp Image 2025-12-25 at 17.31.49.jpeg" alt="Instagram Post 5" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <p class="text-sm">Healthy meal prep ideas for the week #Nutrition</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <a href="#" class="btn-primary bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold inline-flex items-center hover:bg-yellow-500">
+        <i class="fab fa-instagram mr-2"></i> FOLLOW ON INSTAGRAM
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-bg py-12 md:py-16">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+      <div>
+        <div class="flex items-center space-x-2 mb-4 md:mb-6">
+          <i class="fas fa-dumbbell text-yellow-400 text-2xl"></i>
+          <span class="font-bold text-xl">GYM<br><span class="text-xs">FITNESS</span></span>
+        </div>
+        <p class="text-gray-300 mb-4 md:mb-6 text-sm">
+          client will provide
+        </p>
+        <div class="space-y-2 md:space-y-3">
+          <div class="flex items-center space-x-2 md:space-x-3">
+            <i class="fas fa-envelope text-yellow-400 text-xs md:text-sm"></i>
+            <span class="text-xs md:text-sm">email@client</span>
+          </div>
+          <div class="flex items-center space-x-2 md:space-x-3">
+            <i class="fas fa-phone-alt text-yellow-400 text-xs md:text-sm"></i>
+            <span class="text-xs md:text-sm">Phone: 23471678</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4 md:mb-6">Our Location</h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold mb-1 md:mb-2 text-sm">New York</h4>
+            <p class="text-gray-300 text-xs">45 Grand Ventral Building, New York, NY 10017</p>
+          </div>
+          <div>
+            <h4 class="font-bold mb-1 md:mb-2 text-sm">Los Angeles</h4>
+            <p class="text-gray-300 text-xs">45 Grand Ventral Building, New York, NY 10017</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4 md:mb-6">Opening Hours</h3>
+        <div class="space-y-3 md:space-y-4">
+          <div>
+            <h4 class="font-bold mb-1 md:mb-2 text-sm">Monday – Friday</h4>
+            <p class="text-gray-300 text-xs">Our doors are open at 07:00AM-22:00PM</p>
+          </div>
+          <div>
+            <h4 class="font-bold mb-1 md:mb-2 text-sm">Weekends</h4>
+            <p class="text-gray-300 text-xs">Our doors are open at 10:00AM-16:00PM</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4 md:mb-6">Follow Us</h3>
+        <div class="flex space-x-3">
+          <a href="#" class="bg-gray-800 p-2 rounded-full hover:bg-yellow-400 hover:text-black transition-colors">
+            <i class="fab fa-facebook-f text-xs"></i>
+          </a>
+          <a href="#" class="bg-gray-800 p-2 rounded-full hover:bg-yellow-400 hover:text-black transition-colors">
+            <i class="fab fa-twitter text-xs"></i>
+          </a>
+          <a href="#" class="bg-gray-800 p-2 rounded-full hover:bg-yellow-400 hover:text-black transition-colors">
+            <i class="fab fa-instagram text-xs"></i>
+          </a>
+          <a href="#" class="bg-gray-800 p-2 rounded-full hover:bg-yellow-400 hover:text-black transition-colors">
+            <i class="fab fa-linkedin-in text-xs"></i>
+          </a>
+          <a href="#" class="bg-gray-800 p-2 rounded-full hover:bg-yellow-400 hover:text-black transition-colors">
+            <i class="fab fa-pinterest-p text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 md:mt-12 pt-6 text-center">
+      <p class="text-gray-400 text-xs">
+        Copyright © 2025 Gym Fitness. Powered By Bosathemes.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="fixed bottom-6 right-6 bg-yellow-400 text-black p-3 rounded-full shadow-lg hover:bg-yellow-500 transition-colors z-40 hidden">
+  <i class="fas fa-arrow-up text-sm"></i>
+</button>
+
+<!-- ✅ Simplified JavaScript -->
+<script>
+// Mobile Menu Toggle
+document.getElementById('mobileMenuButton').addEventListener('click', function() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+});
+
+// ✅ Minimal Announcement Loader
+document.addEventListener('DOMContentLoaded', () => {
+  const contentEl = document.getElementById('announcement-content');
+  const dateEl = document.getElementById('announcement-date');
+  const closeBtn = document.getElementById('announcement-close');
+
+  // Optional close behavior
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      const tab = document.querySelector('.announcement-tab');
+      if (tab) tab.style.display = 'none';
+    });
+  }
+
+  // Fetch and render update.md
+  fetch('content/announcement/update.md')
+    .then(res => {
+      if (!res.ok) throw new Error('File not found');
+      return res.text();
+    })
+    .then(md => {
+      const html = marked.parse(md, { breaks: true, gfm: true });
+      contentEl.innerHTML = html;
+      const now = new Date();
+      dateEl.textContent = now.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    })
+    .catch(err => {
+      contentEl.innerHTML = '<p class="text-red-400">Failed to load announcement.</p>';
+      dateEl.textContent = 'Posted: —';
+    });
+});
+
+// Interactive Logo + Back to Top (unchanged)
+class InteractiveLogo {
+  constructor() {
+    this.logo = document.querySelector('.interactive-logo');
+    if (this.logo) {
+      this.logo.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  }
+}
+class BackToTop {
+  constructor() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('hidden', window.scrollY < 300);
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  new InteractiveLogo();
+  new BackToTop();
+});
+</script>
+
+</body>
+</html>
